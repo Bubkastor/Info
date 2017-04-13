@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Microsoft.AspNetCore.Http;
+
 namespace Info
 {
     public class Startup
@@ -46,6 +48,15 @@ namespace Info
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseStatusCodePages(async context =>
+            {
+                context.HttpContext.Response.ContentType = "text/plain";
+                await context.HttpContext.Response.WriteAsync(
+                    "Status code page, status code: " +
+                    context.HttpContext.Response.StatusCode);
+            });
+
 
             app.UseStaticFiles();
 
