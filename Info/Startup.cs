@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using Info.Data;
 
 namespace Info
 {
@@ -29,12 +30,14 @@ namespace Info
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+            services.AddDbContext<InfoContext>(options  => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, InfoContext context)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -49,12 +52,12 @@ namespace Info
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStatusCodePages(async context =>
+            app.UseStatusCodePages(async contextHttp =>
             {
-                context.HttpContext.Response.ContentType = "text/plain";
-                await context.HttpContext.Response.WriteAsync(
+                contextHttp.HttpContext.Response.ContentType = "text/plain";
+                await contextHttp.HttpContext.Response.WriteAsync(
                     "Status code page, status code: " +
-                    context.HttpContext.Response.StatusCode);
+                    contextHttp.HttpContext.Response.StatusCode);
             });
 
 
@@ -66,6 +69,8 @@ namespace Info
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.Initialize(context);
         }
     }
 }

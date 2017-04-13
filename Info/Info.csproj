@@ -9,6 +9,18 @@
     <ApplicationInsightsResourceId>/subscriptions/3abe286b-041c-4e95-8309-f216634ddc7a/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/Info</ApplicationInsightsResourceId>
     <ApplicationInsightsAnnotationResourceId>/subscriptions/3abe286b-041c-4e95-8309-f216634ddc7a/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/Info</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="obj\Views\Home\About.cshtml" />
+    <Content Include="obj\Views\Home\Contact.cshtml" />
+    <Content Include="obj\Views\Home\Index.cshtml" />
+    <Content Include="obj\Views\Shared\Error.cshtml" />
+    <Content Include="obj\Views\Shared\Layout.cshtml" />
+    <Content Include="obj\Views\Shared\_Layout.cshtml" />
+    <Content Include="obj\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Include="obj\Views\_ViewImports.cshtml" />
+    <Content Include="obj\Views\_ViewStart.cshtml" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
@@ -29,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Model\" />
   </ItemGroup>
 
 </Project>
