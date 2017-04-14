@@ -52,13 +52,13 @@ namespace Info
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStatusCodePages(async contextHttp =>
-            {
-                contextHttp.HttpContext.Response.ContentType = "text/plain";
-                await contextHttp.HttpContext.Response.WriteAsync(
-                    "Status code page, status code: " +
-                    contextHttp.HttpContext.Response.StatusCode);
-            });
+            //app.UseStatusCodePages(async contextHttp =>
+            //{
+            //    contextHttp.HttpContext.Response.ContentType = "text/plain";
+            //    await contextHttp.HttpContext.Response.WriteAsync(
+            //        "Status code page, status code: " +
+            //        contextHttp.HttpContext.Response.StatusCode);
+            //});
 
 
             app.UseStaticFiles();
@@ -67,7 +67,7 @@ namespace Info
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Articles}/{action=Index}/{id?}");
             });
 
             DbInitializer.Initialize(context);
