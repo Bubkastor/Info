@@ -51,16 +51,7 @@ namespace Info
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            //app.UseStatusCodePages(async contextHttp =>
-            //{
-            //    contextHttp.HttpContext.Response.ContentType = "text/plain";
-            //    await contextHttp.HttpContext.Response.WriteAsync(
-            //        "Status code page, status code: " +
-            //        contextHttp.HttpContext.Response.StatusCode);
-            //});
-
-
+        
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
