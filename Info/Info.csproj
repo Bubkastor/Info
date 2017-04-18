@@ -15,6 +15,7 @@
     <Content Include="obj\Views\Home\Contact.cshtml" />
     <Content Include="obj\Views\Home\Index.cshtml" />
     <Content Include="obj\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Include="wwwroot\images\skype.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />

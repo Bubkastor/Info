@@ -28,14 +28,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Info</a>
+                <a asp-area="" asp-controller="Articles" asp-action="Index" class="navbar-brand">Info</a>
             </div>
+
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li class="active">
+                        <a asp-controler="Articles" asp-action="Create">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            Добавить новость
+                        </a>
+                    </li>
                 </ul>
+                <div class="btn-group navbar-right">
+                    <button type="button" class="btn btn-primary navbar-btn ">Войти</button>
+                    <button type="button" class="btn btn-success navbar-btn ">Регистрация</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -71,3 +79,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+

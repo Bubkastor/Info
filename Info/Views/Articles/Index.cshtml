@@ -7,24 +7,31 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="content col-md-5 ">
-            <h2>
-                @Html.DisplayFor(modelItem => item.Title)
-            </h2>
-            <time>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </time>
-
-            <div class="description">
-                @Html.DisplayFor(modelItem => item.Description)
+        <div class="content col-md-5 col-xs-5 ">
+            <div class="col-xs-3">
+                <img src="@Html.DisplayFor(modelItem => item.AppID.Icon)" />
             </div>
+            <div class="col-xs-9">
+                <h2>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </h2>
+                <time>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </time>
 
-            @*@Html.DisplayFor(modelItem => item.Content)*@
-            <div class="like">
-                @Html.DisplayFor(modelItem => item.Like)
+                <div class="description">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </div>
+
+                @*@Html.DisplayFor(modelItem => item.Content)*@
+                <div class="like">
+                    @Html.DisplayFor(modelItem => item.Like)
+                </div>
+                <a href="@Html.DisplayFor(modelItem => item.AppID.UrlMarket)">Link</a>
+                <a class="detail" asp-action="Details" asp-route-id="@item.ID"></a>            
             </div>
-            <a href="@Html.DisplayFor(modelItem => item.AppID.UrlMarket)">Link</a>
-            <a class="detail" asp-action="Details" asp-route-id="@item.ID"></a>
+            
         </div>
+
     }
 </div>
