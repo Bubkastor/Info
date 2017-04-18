@@ -10,7 +10,8 @@ namespace Info.Models
     public enum AppPlatform
     {
         Android,
-        Ios
+        Ios,
+        Windows
     }
     public class App
     {

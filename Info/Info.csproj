@@ -11,10 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="obj\Views\Home\About.cshtml" />
-    <Content Include="obj\Views\Home\Contact.cshtml" />
-    <Content Include="obj\Views\Home\Index.cshtml" />
-    <Content Include="obj\Views\Shared\_ValidationScriptsPartial.cshtml" />
     <Content Include="wwwroot\images\skype.png" />
   </ItemGroup>
   <ItemGroup>
