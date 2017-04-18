@@ -4,56 +4,27 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ReleaseDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Content)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Like)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="content col-md-5 ">
+            <h2>
                 @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
+            </h2>
+            <time>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
+            </time>
+
+            <div class="description">
                 @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
+            </div>
+
+            @*@Html.DisplayFor(modelItem => item.Content)*@
+            <div class="like">
                 @Html.DisplayFor(modelItem => item.Like)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </div>
+            <a href="@Html.DisplayFor(modelItem => item.AppID.UrlMarket)">Link</a>
+            <a class="detail" asp-action="Details" asp-route-id="@item.ID"></a>
+        </div>
+    }
+</div>

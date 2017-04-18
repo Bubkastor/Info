@@ -22,7 +22,12 @@ namespace Info.Controllers
         // GET: Articles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articles.ToListAsync());
+            //include any property
+            var articles = await _context.Articles
+                .Include(a => a.AppID)
+                .Include(u => u.UserID)
+                .ToListAsync();
+            return View(articles);
         }
 
         // GET: Articles/Details/5
