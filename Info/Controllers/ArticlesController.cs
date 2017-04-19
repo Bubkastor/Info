@@ -30,6 +30,17 @@ namespace Info.Controllers
             return View(articles);
         }
 
+        [HttpPost]
+        public JsonResult Index(string Prefix)
+        {
+            var appsDb = _context.Apps
+                .Where(it => it.Name.StartsWith(Prefix))
+                .AsNoTracking()
+                .ToList();
+            return Json(appsDb);
+        }
+
+
         // GET: Articles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -51,10 +62,25 @@ namespace Info.Controllers
             return View(article);
         }
 
-
         // GET: Articles/Create
         public IActionResult Create()
         {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = AppPlatform.Android.ToString(), Value = AppPlatform.Android.ToString() });
+            items.Add(new SelectListItem { Text = AppPlatform.Ios.ToString(), Value = AppPlatform.Ios.ToString() });
+            items.Add(new SelectListItem { Text = AppPlatform.Windows.ToString(), Value = AppPlatform.Windows.ToString() });
+            ViewBag.Category = items;
+
+            var appsDb = _context.Apps
+                .AsNoTracking()
+                .ToList();
+            
+            List<SelectListItem> apps = new List<SelectListItem>();
+            foreach(var it in appsDb)
+            {
+                apps.Add(new SelectListItem { Text = it.Name, Value = it.ID.ToString() });
+            }
+            ViewBag.AppName = apps;
             return View();
         }
 

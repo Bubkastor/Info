@@ -1,5 +1,5 @@
 @model Info.Models.Article
-
+@using Info.Models;
 @{
     ViewData["Title"] = "Create news";
 }
@@ -8,55 +8,47 @@
 
 <form asp-action="Create">
     <div class="form-horizontal">
-        <h4>Article</h4>
+        <h4>News</h4>
         <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="Title" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+            <label class="col-lg-2 control-label" for="hobies">Platform</label>
+            <div class="col-lg-10">
+                @Html.DropDownList("Category")
             </div>
         </div>
         <div class="form-group">
-            <label asp-for="ReleaseDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ReleaseDate" class="form-control" />
-                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Content" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Like" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Like" class="form-control" />
-                <span asp-validation-for="Like" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <label class="col-lg-2 control-label" for="hobies">App name</label>
+            <div class="col-lg-10">
+                @Html.DropDownList("AppName")
+                <input id="CityName"/>
+                <script>
+                    $(document).ready(function () {
+                        $("#CityName").autocomplete({
+                            source: function (request, response) {
+                                $.ajax({
+                                    url: "/Articles/Index",
+                                    type: "POST",
+                                    dataType: "json",
+                                    data: { Prefix: request.term },
+                                    success: function (data) {
+                                        response($.map(data, function (item) {
+                                            return { label: item.Name, value: item.Name };
+                                        }))
+
+                                    }
+                                })
+                            },
+                            messages: {
+                                noResults: "", results: ""
+                            }
+                        });
+                    }) 
+                </script>
             </div>
         </div>
     </div>
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
