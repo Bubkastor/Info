@@ -74,9 +74,9 @@ namespace Info.Controllers
             var appsDb = _context.Apps
                 .AsNoTracking()
                 .ToList();
-            
+
             List<SelectListItem> apps = new List<SelectListItem>();
-            foreach(var it in appsDb)
+            foreach (var it in appsDb)
             {
                 apps.Add(new SelectListItem { Text = it.Name, Value = it.ID.ToString() });
             }
@@ -89,16 +89,29 @@ namespace Info.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Description,Content,Like")] Article article)
+        public async Task<IActionResult> Create(ViewModelArticle vArticle)
         {
             try
-            { 
-            if (ModelState.IsValid)
             {
-                _context.Add(article);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    var article = vArticle.GetArticle();
+                    var appID = _context.Apps
+                        .Where(it =>
+                        it.Name == vArticle.AppName &&
+                        it.Platform == vArticle.Platform)
+                        .SingleOrDefault();
+                    if (appID != null) {
+                        article.AppID = appID;
+                    }
+                    else
+                    {
+                        //todo CreateAppID
+                    }
+                    _context.Add(article);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
             catch (DbUpdateException /* ex */)
             {
@@ -107,7 +120,7 @@ namespace Info.Controllers
                     "Try again, and if the problem persists " +
                     "see your system administrator.");
             }
-            return View(article);
+            return View(vArticle);
         }
 
         // GET: Articles/Edit/5

@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 20px;
     background: #e2e1e0;
 }
@@ -9,45 +9,16 @@
     padding-right: 15px;
 }
 
-input,
-select,
-textarea {
-    max-width: 280px;
+
+.col-md-6, .col-md-4 {
+    padding-left: 20px;
+    padding-right: 20px;
 }
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
-
-.row {
-    margin-top: 10px;
-}
-
 .content {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    margin: 10px auto;
     position: relative;
 }
-
-.content img {
-    float: left;
-    width: 100px;
-    height: 100px;
-}
-
 
 .content:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
@@ -71,4 +42,11 @@ textarea {
 .container .nav-pills {
     display: inline-block;
     text-align: center;
+}
+.app-logo-container{
+    position: relative;
+    width: 100%;
+}
+.app-logo-container > img{
+    width: 100%;
 }
