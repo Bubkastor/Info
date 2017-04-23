@@ -50,3 +50,20 @@
 .app-logo-container > img{
     width: 100%;
 }
+
+.icon {
+    display: block;
+    width: 30px;
+    height: 30px;    
+    margin: 5px auto;
+}
+
+.icon-android {
+    background: url("../images/icon/icon-android.png") no-repeat;
+    background-size: cover;
+}
+
+.icon-ios {
+    background: url("../images/icon/icon-ios.png") no-repeat;
+    background-size: cover;
+}

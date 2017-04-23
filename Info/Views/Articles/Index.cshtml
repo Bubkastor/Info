@@ -24,7 +24,7 @@
                         <img src="@Html.DisplayFor(modelItem => item.AppID.Icon)" />
                     </div>
                     <div class="app-platform">
-                        <span class="icon icon-@item.AppID.Platform.ToString()"></span>
+                        <span class="icon icon-@item.AppID.Platform.ToString().ToLower()"></span>
                     </div>
 
                 </div>
