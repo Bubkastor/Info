@@ -4,10 +4,10 @@
 @{
     ViewData["Title"] = "New articles";
 }
-<div class="row">
-    <div class="filter btn-group">
-        <button class="btn-info ios">ios</button>
-        <button class="btn-primary android">android</button>
+<div class="row filter">    
+    <div class="btn-group">
+        <button id="filter-ios" class="btn btn-primary navbar-btn ios" onclick="changeLocation('ios');">ios</button>
+        <button id="filter-android" class="btn btn-primary navbar-btn android" onclick="changeLocation('android')">android</button>
     </div>
 </div>
 
