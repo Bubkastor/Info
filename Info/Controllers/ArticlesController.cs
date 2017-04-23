@@ -20,14 +20,26 @@ namespace Info.Controllers
         }
 
         // GET: Articles
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string platform, string page)
         {
-            //include any property
-            var articles = await _context.Articles
-                .Include(a => a.AppID)
+
+            var articles = from s in _context.Articles
+                           select s;
+            if (platform != null)
+            {
+                AppPlatform appPlatform = Helper.GetPlatform(platform);
+                articles = from s in _context.Articles
+                           .Include(a => a.App)
+                           where (s.App.Platform == appPlatform)
+                           select s;
+            }
+
+            articles = articles.OrderByDescending(s => s.ReleaseDate);
+            return View(await articles
+                .Include(a => a.App)
                 .Include(u => u.UserID)
-                .ToListAsync();
-            return View(articles);
+                .AsNoTracking()
+                .ToListAsync());
         }
 
         [HttpPost]
@@ -37,7 +49,12 @@ namespace Info.Controllers
                 .Where(it => it.Name.StartsWith(Prefix))
                 .AsNoTracking()
                 .ToList();
-            return Json(appsDb);
+            var apps = new HashSet<String>();
+            foreach (var it in appsDb)
+            {
+                apps.Add(it.Name);
+            }
+            return Json(apps);
         }
 
 
@@ -50,7 +67,7 @@ namespace Info.Controllers
             }
 
             var article = await _context.Articles
-                .Include(a => a.AppID)
+                .Include(a => a.App)
                 .Include(u => u.UserID)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
@@ -89,7 +106,7 @@ namespace Info.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ViewModelArticle vArticle)
+        public async Task<IActionResult> Create([Bind("AppName,Platform, Title, Description, Content")]ViewModelArticle vArticle)
         {
             try
             {
@@ -101,8 +118,9 @@ namespace Info.Controllers
                         it.Name == vArticle.AppName &&
                         it.Platform == vArticle.Platform)
                         .SingleOrDefault();
-                    if (appID != null) {
-                        article.AppID = appID;
+                    if (appID != null)
+                    {
+                        article.App = appID;
                     }
                     else
                     {
@@ -113,7 +131,7 @@ namespace Info.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException ex)
             {
                 //Log the error (uncomment ex variable name and write a log.
                 ModelState.AddModelError("", "Unable to save changes. " +

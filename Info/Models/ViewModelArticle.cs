@@ -31,9 +31,9 @@ namespace Info.Models
             var result = new Article();
             result.Content = this.Content;
             result.Title = Title;
-            result.ReleaseDate = ReleaseDate;
+            result.ReleaseDate = DateTime.Now;
             result.Description = Description;
-            result.Like = Like;
+            result.Like = 0;
             return result;
         }
     }

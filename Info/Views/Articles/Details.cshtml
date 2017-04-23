@@ -41,10 +41,10 @@
             @Html.DisplayFor(model => model.Like)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.AppID)
+            @Html.DisplayNameFor(model => model.App)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.AppID.Name)
+            @Html.DisplayFor(model => model.App.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UserID)
@@ -56,12 +56,11 @@
            URL
         </dt>
         <dd>
-            <a href="@Html.DisplayFor(model => model.AppID.UrlMarket)">Link</a>
+            <a href="@Html.DisplayFor(model => model.App.UrlMarket)">Link</a>
             
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

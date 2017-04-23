@@ -4,11 +4,17 @@
 @{
     ViewData["Title"] = "New articles";
 }
+<div class="row">
+    <div class="filter btn-group">
+        <button class="btn-info ios">ios</button>
+        <button class="btn-primary android">android</button>
+    </div>
+</div>
 
 <div class="row">
     @{
         int count = 0;
-    }
+    }    
     @foreach (var item in Model)
     {
 
@@ -21,10 +27,10 @@
             <div class="row content">
                 <div class="col-xs-3">
                     <div class="app-logo-container">
-                        <img src="@Html.DisplayFor(modelItem => item.AppID.Icon)" />
+                        <img src="@Html.DisplayFor(modelItem => item.App.Icon)" />
                     </div>
                     <div class="app-platform">
-                        <span class="icon icon-@item.AppID.Platform.ToString().ToLower()"></span>
+                        <span class="icon icon-@item.App.Platform.ToString()?.ToLower()"></span>
                     </div>
                 </div>
                 <div class="col-xs-9">
@@ -39,7 +45,7 @@
                             @Html.DisplayFor(modelItem => item.ReleaseDate)
                         </time>
                         <div class="right-side">
-                            <a class="footer-link" href="@Html.DisplayFor(modelItem => item.AppID.UrlMarket)">
+                            <a class="footer-link" href="@Html.DisplayFor(modelItem => item.App.UrlMarket)">
                                 <div class="footer-icon icon-download">
                                     Get app
                                 </div>

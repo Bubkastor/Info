@@ -14,7 +14,7 @@
                     data: { Prefix: request.term },
                     success: function (data) {
                         response($.map(data, function (item) {
-                            return { label: item.name, value: item.ID };
+                            return { label: item, value: item };
                         }))
 
                     }
@@ -59,13 +59,6 @@
                 <input id="CityName" asp-for="AppName" class="form-control"/>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="ReleaseDate" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ReleaseDate" class="form-control" />
-                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
-            </div>
-        </div>
 
         <div class="form-group">
             <label asp-for="Description" class="col-md-2 control-label"></label>
@@ -80,14 +73,6 @@
             <div class="col-md-10">
                 <input asp-for="Content" class="form-control" />
                 <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Like" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Like" class="form-control" />
-                <span asp-validation-for="Like" class="text-danger"></span>
             </div>
         </div>
 
