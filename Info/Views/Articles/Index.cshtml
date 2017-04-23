@@ -18,7 +18,7 @@
             divClass = "col-md-6";
         }
         <div class="@divClass">
-            <div class="row content">   
+            <div class="row content">
                 <div class="col-xs-3">
                     <div class="app-logo-container">
                         <img src="@Html.DisplayFor(modelItem => item.AppID.Icon)" />
@@ -26,29 +26,34 @@
                     <div class="app-platform">
                         <span class="icon icon-@item.AppID.Platform.ToString().ToLower()"></span>
                     </div>
-
                 </div>
                 <div class="col-xs-9">
-                    <h2>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </h2>
-                    <time>
-                        @Html.DisplayFor(modelItem => item.ReleaseDate)
-                    </time>
-
-                    <div class="description">
+                    <header class="header-item">
+                        <h2 class="header-item-title">@Html.DisplayFor(modelItem => item.Title)</h2>
+                    </header>
+                    <content class="content-item">
                         @Html.DisplayFor(modelItem => item.Description)
-                    </div>
-
-                    @*@Html.DisplayFor(modelItem => item.Content)*@
-                    <div class="like">
-                        @Html.DisplayFor(modelItem => item.Like)
-                    </div>
-                    <a href="@Html.DisplayFor(modelItem => item.AppID.UrlMarket)">Link</a>
-                    <a class="detail" asp-action="Details" asp-route-id="@item.ID"></a>
+                    </content>
+                    <footer class="footer-item clearfix">
+                        <time>
+                            @Html.DisplayFor(modelItem => item.ReleaseDate)
+                        </time>
+                        <div class="right-side">
+                            <a class="footer-link" href="@Html.DisplayFor(modelItem => item.AppID.UrlMarket)">
+                                <div class="footer-icon icon-download">
+                                    Get app
+                                </div>
+                            </a>
+                            <div class="footer-like">
+                                Like
+                                <span class="badge">@Html.DisplayFor(modelItem => item.Like)</span>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
+                <a class="detail" asp-action="Details" asp-route-id="@item.ID"></a>
             </div>
         </div>
         count++;
     }
-    </div>
+</div>
