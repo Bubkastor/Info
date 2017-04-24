@@ -4,64 +4,39 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-xs-4 back-page">
+        <a class="back-page_link" asp-action="Index"></a>
+    </div>
+    <div class="col-xs-4 col-centered text-center content not-hover">
+        <div class="row">
+            <img class="logo" src="@Html.DisplayFor(model => model.App.Icon)" />
+        </div>
+        <article class="row">
+            <header class="detail-header clearfix">
+                <div class="detail-title">@Html.DisplayFor(model => model.Title)</div>
+                <div class="detail-date">@Html.DisplayFor(model => model.ReleaseDate)</div>
+            </header>
+            <div class="detail-description clearfix">@Html.DisplayFor(model => model.Description)</div>
+            <div class="detail-content">@Html.DisplayFor(model => model.Content)</div>
+            <footer class="detail-footer">
+                <div class="detail-footer_wrapper clearfix">
+                    <div class="detail-social">
+                        <a class="twitter-share-button"
+                           href="https://twitter.com/intent/tweet?text=@Html.DisplayFor(model => model.Title) @Context.Request.Host@Context.Request.Path">
+                            Tweet
+                        </a>
+                        <script type="text/javascript">
+                        <!--
+                            document.write(VK.Share.button(false, { type: "custom", text: "<img src=\"https://vk.com/images/share_32.png\" width=\"20\" height=\"20\" />", url: window.location.href }));
+                        --></script>
 
-<div>
-    <h4>Article</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Like)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Like)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AppID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AppID.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UserID.Name)
-        </dd>
-        <dt>
-           URL
-        </dt>
-        <dd>
-            <a href="@Html.DisplayFor(model => model.AppID.UrlMarket)">Link</a>
-            
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                    </div>
+                    <div class="detail-link">
+                        <a href="@Html.DisplayFor(model => model.App.UrlMarket)">Get App</a>
+                    </div>
+                </div>
+            </footer>
+        </article>
+    </div>
 </div>

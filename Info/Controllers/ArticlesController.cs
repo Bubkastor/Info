@@ -20,14 +20,26 @@ namespace Info.Controllers
         }
 
         // GET: Articles
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string platform, string page)
         {
-            //include any property
-            var articles = await _context.Articles
-                .Include(a => a.AppID)
+
+            var articles = from s in _context.Articles
+                           select s;
+            if (platform != null)
+            {
+                AppPlatform appPlatform = Helper.GetPlatform(platform);
+                articles = from s in _context.Articles
+                           .Include(a => a.App)
+                           where (s.App.Platform == appPlatform)
+                           select s;
+            }
+
+            articles = articles.OrderByDescending(s => s.ReleaseDate);
+            return View(await articles
+                .Include(a => a.App)
                 .Include(u => u.UserID)
-                .ToListAsync();
-            return View(articles);
+                .AsNoTracking()
+                .ToListAsync());
         }
 
         [HttpPost]
@@ -37,7 +49,12 @@ namespace Info.Controllers
                 .Where(it => it.Name.StartsWith(Prefix))
                 .AsNoTracking()
                 .ToList();
-            return Json(appsDb);
+            var apps = new HashSet<String>();
+            foreach (var it in appsDb)
+            {
+                apps.Add(it.Name);
+            }
+            return Json(apps);
         }
 
 
@@ -50,7 +67,7 @@ namespace Info.Controllers
             }
 
             var article = await _context.Articles
-                .Include(a => a.AppID)
+                .Include(a => a.App)
                 .Include(u => u.UserID)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
@@ -74,9 +91,9 @@ namespace Info.Controllers
             var appsDb = _context.Apps
                 .AsNoTracking()
                 .ToList();
-            
+
             List<SelectListItem> apps = new List<SelectListItem>();
-            foreach(var it in appsDb)
+            foreach (var it in appsDb)
             {
                 apps.Add(new SelectListItem { Text = it.Name, Value = it.ID.ToString() });
             }
@@ -89,25 +106,39 @@ namespace Info.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Description,Content,Like")] Article article)
+        public async Task<IActionResult> Create([Bind("AppName,Platform, Title, Description, Content")]ViewModelArticle vArticle)
         {
             try
-            { 
-            if (ModelState.IsValid)
             {
-                _context.Add(article);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var article = vArticle.GetArticle();
+                    var appID = _context.Apps
+                        .Where(it =>
+                        it.Name == vArticle.AppName &&
+                        it.Platform == vArticle.Platform)
+                        .SingleOrDefault();
+                    if (appID != null)
+                    {
+                        article.App = appID;
+                    }
+                    else
+                    {
+                        //todo CreateAppID
+                    }
+                    _context.Add(article);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
             }
-            }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException ex)
             {
                 //Log the error (uncomment ex variable name and write a log.
                 ModelState.AddModelError("", "Unable to save changes. " +
                     "Try again, and if the problem persists " +
                     "see your system administrator.");
             }
-            return View(article);
+            return View(vArticle);
         }
 
         // GET: Articles/Edit/5
